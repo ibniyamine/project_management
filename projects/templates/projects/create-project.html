@@ -1,0 +1,234 @@
+{% extends 'projects/base.html' %}
+
+{% load static %}
+
+
+{% block content %}   
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="main-content-inner">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                <!-- Header -->
+                <div class="text-center mb-5">
+                    <h2 class="mb-3">Créer un Nouveau Projet</h2>
+                    <p class="text-muted">Partagez votre recherche et collaborez avec la communauté Data Science</p>
+                </div>
+
+                <!-- Project Creation Form -->
+                <div class="card shadow">
+                    <div class="card-body p-4">
+            
+                            <!-- Step 1: Basic Information -->
+                            <div class="step-section" id="step1">
+                                <h5 class="mb-4">
+                                    <span class="badge bg-primary me-2">1</span>
+                                    Informations de base
+                                </h5>
+                                
+                                <form method="POST">
+                                {% csrf_token %}
+                                <div class="row">
+                                    <div class="col-md-8 mb-3">
+                                        <label for="projectTitle" class="form-label">Titre du projet *</label>
+                                        {{ form.title }}
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        <label for="analysisType" class="form-label">Type d'analyse *</label>
+                                        {{ form.analysis_type }}
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="projectDescription" class="form-label">Description du projet *</label>
+                                    
+                                              {{ form.description }}
+                                    <div class="form-text">Minimum 100 caractères</div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="projectTags" class="form-label">Status</label>
+                                        {{ form.status }}
+                                       
+                                        <div class="form-text">Séparez les mots-clés par des virgules</div>
+                                    </div>
+                                    <!-- <div class="col-md-6 mb-3">
+                                        <label for="projectVisibility" class="form-label">Visibilité *</label>
+                                        <select class="form-select" id="projectVisibility" required>
+                                            <option value="public">Public - Visible par tous</option>
+                                            <option value="private">Privé - Visible par les collaborateurs uniquement</option>
+                                            <option value="restricted">Restreint - Sur invitation uniquement</option>
+                                        </select>
+                                    </div> -->
+                                </div>
+                            </div>
+                            <!-- <button type="submit" class="btn btn-success" id="submitProject" style="display: none;">
+                                        <i class="fas fa-rocket me-1"></i>Créer le projet
+                            </button> -->
+                            <button type="submit" class="btn btn-primary">Enregistrer</button>
+                            </form>
+
+                            <!-- Step 2: Collaboration Settings -->
+                            <!-- <div class="step-section mt-5" id="step2">
+                                <h5 class="mb-4">
+                                    <span class="badge bg-primary me-2">2</span>
+                                    Paramètres de collaboration
+                                </h5>
+
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">Collaboration ouverte</label>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="openCollaboration">
+                                            <label class="form-check-label" for="openCollaboration">
+                                                Permettre aux utilisateurs de demander à rejoindre le projet
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="maxCollaborators" class="form-label">Nombre maximum de collaborateurs</label>
+                                        <input type="number" class="form-control" id="maxCollaborators" 
+                                               min="1" max="20" value="5">
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label">Rôles autorisés à collaborer</label>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="allowStudents" checked>
+                                                <label class="form-check-label" for="allowStudents">
+                                                    <i class="fas fa-graduation-cap me-2"></i>Étudiants
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="allowResearchers" checked>
+                                                <label class="form-check-label" for="allowResearchers">
+                                                    <i class="fas fa-user-graduate me-2"></i>Chercheurs
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="collaborationMessage" class="form-label">Message pour les candidats collaborateurs</label>
+                                    <textarea class="form-control" id="collaborationMessage" rows="3"
+                                              placeholder="Décrivez ce que vous attendez des collaborateurs, les compétences requises..."></textarea>
+                                </div>
+                            </div> -->
+
+                            <!-- Step 3: Initial Notebook Upload -->
+                            <!-- <div class="step-section mt-5" id="step3">
+                                <h5 class="mb-4">
+                                    <span class="badge bg-primary me-2">3</span>
+                                    Notebook initial (optionnel)
+                                </h5>
+
+                                <div class="file-upload-area" id="notebookUpload">
+                                    <div class="text-center">
+                                        <i class="fas fa-cloud-upload-alt fa-3x text-muted mb-3"></i>
+                                        <h6>Glissez-déposez votre notebook Jupyter ici</h6>
+                                        <p class="text-muted">ou <a href="#" class="text-primary">cliquez pour parcourir</a></p>
+                                        <small class="text-muted">Formats acceptés: .ipynb (max 10MB)</small>
+                                    </div>
+                                    <input type="file" id="notebookFile" accept=".ipynb" style="display: none;">
+                                </div>
+
+                                <div id="uploadedNotebook" class="mt-3" style="display: none;">
+                                    <div class="alert alert-success">
+                                        <div class="d-flex align-items-center">
+                                            <i class="fas fa-check-circle me-2"></i>
+                                            <div class="flex-grow-1">
+                                                <strong id="notebookName"></strong>
+                                                <div class="small text-muted" id="notebookSize"></div>
+                                            </div>
+                                            <button type="button" class="btn btn-sm btn-outline-danger" id="removeNotebook">
+                                                <i class="fas fa-times"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row mt-3">
+                                    <div class="col-md-12 mb-3">
+                                        <label for="notebookDescription" class="form-label">Description du notebook</label>
+                                        <textarea class="form-control" id="notebookDescription" rows="2"
+                                                  placeholder="Décrivez le contenu et l'objectif de ce notebook..."></textarea>
+                                    </div>
+                                </div>
+                            </div> -->
+
+                            <!-- Step 4: Review and Submit -->
+                            <!-- <div class="step-section mt-5" id="step4">
+                                <h5 class="mb-4">
+                                    <span class="badge bg-primary me-2">4</span>
+                                    Récapitulatif
+                                </h5>
+
+                                <div class="card bg-light">
+                                    <div class="card-body">
+                                        <h6 class="card-title">Aperçu du projet</h6>
+                                        <div id="projectSummary">
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-check mt-3">
+                                    <input class="form-check-input" type="checkbox" id="agreeTerms" required>
+                                    <label class="form-check-label" for="agreeTerms">
+                                        J'accepte les <a href="#" class="text-primary">conditions d'utilisation</a> 
+                                        et la <a href="#" class="text-primary">politique de confidentialité</a>
+                                    </label>
+                                </div>
+                            </div> -->
+
+                            <!-- Form Actions -->
+                            <!-- <div class="d-flex justify-content-between mt-5 pt-4 border-top">
+                                <button type="button" class="btn btn-outline-secondary" id="prevStep" style="display: none;">
+                                    <i class="fas fa-arrow-left me-1"></i>Précédent
+                                </button>
+                                <div class="ms-auto">
+                                    <button type="button" class="btn btn-primary me-2" id="nextStep">
+                                        Suivant<i class="fas fa-arrow-right ms-1"></i>
+                                    </button>
+                                    <button type="submit" class="btn btn-success" id="submitProject" style="display: none;">
+                                        <i class="fas fa-rocket me-1"></i>Créer le projet
+                                    </button>
+                                </div>
+                            </div> -->
+                        <!-- </form> -->
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div class="modal fade" id="successModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body text-center p-4">
+                    <div class="mb-3">
+                        <i class="fas fa-check-circle fa-4x text-success"></i>
+                    </div>
+                    <h4 class="mb-3">Projet créé avec succès!</h4>
+                    <p class="text-muted mb-4">Votre projet a été publié et est maintenant visible par la communauté.</p>
+                    <div class="d-flex gap-2 justify-content-center">
+                        <a href="projects.html" class="btn btn-outline-primary">Voir tous les projets</a>
+                        <a href="project-detail.html" class="btn btn-primary">Voir mon projet</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock%}

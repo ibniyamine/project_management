@@ -1,0 +1,56 @@
+{% extends 'projects/base.html' %}
+
+{% load static %}
+
+
+{% block content %}   
+
+
+
+
+<!-- Main Content -->
+    <div class="main-content">
+        <div class="main-content-inner">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                <!-- Header -->
+                <div class="text-center mb-5">
+                    <h2 class="mb-3">Rejoindre un projet passionnant</h2>
+                    <p class="text-muted">Partagez votre recherche et collaborez avec la communauté Data Science</p>
+                </div>
+
+                <!-- Project Creation Form -->
+                <div class="card shadow">
+                    <div class="card-body p-4">
+            
+                            <!-- Step 1: Basic Information -->
+                            <div class="step-section" id="step1">
+                                <h5 class="mb-4">
+                                    <span class="badge bg-primary me-2">1</span>
+                                    Informations de base
+                                </h5>
+                                
+                                <form method="POST">
+                                {% csrf_token %}
+                                <div class="row">
+                                    <div class="col-md-12 mb-3">
+                                        <label for="projectTitle" class="form-label">Titre</label>
+                                        {{ form.message }}
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary">Enregistrer</button>
+                            </form>
+
+                            
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}

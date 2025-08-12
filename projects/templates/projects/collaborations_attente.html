@@ -1,0 +1,152 @@
+{% extends 'projects/base.html' %}
+
+{% load static %}
+
+
+{% block content %}    
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="main-content-inner">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                <h2 class="mb-4">Gestion des Collaborations</h2>
+                
+                <!-- Tabs -->
+                <ul class="nav nav-tabs mb-4" id="collaborationTabs" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="requests-tab" data-bs-toggle="tab" data-bs-target="#requests" type="button" role="tab">
+                            <i class="fas fa-inbox me-1"></i>Demandes Reçues <span class="badge bg-danger ms-1"></span>
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="sent-tab" data-bs-toggle="tab" data-bs-target="#sent" type="button" role="tab">
+                            <i class="fas fa-paper-plane me-1"></i>Demandes Envoyées
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="active-tab" data-bs-toggle="tab" data-bs-target="#active" type="button" role="tab">
+                            <i class="fas fa-users me-1"></i>Collaborations Actives
+                        </button>
+                    </li>
+                </ul>
+
+                <!-- Tab Content -->
+                <div class="tab-content" id="collaborationTabContent">
+                    {% if collaboration_en_attentes%}
+                    {% for collaboration in collaboration_en_attentes %}
+                    <div class="tab-pane fade show active" id="requests" role="tabpanel">
+                        <div class="row">
+                            <div class="col-lg-12">
+                            
+                                <div class="collaboration-request">
+                                    <div class="d-flex align-items-start">
+                                        <div class="user-avatar me-3"></div>
+                                        <div class="flex-grow-1">
+                                            <div class="d-flex justify-content-between align-items-start mb-2">
+                                                <div>
+                                                    <h6 class="mb-1">{{ collaboration.user.username }}</h6>
+                                                    <small class="text-muted">{{ collaboration.user.role }} • {{ collaboration.requested_at}}</small>
+                                                </div>
+                                                <span class="badge bg-warning">En attente</span>
+                                            </div>
+                                            <p class="mb-2"><strong>Projet:</strong> {{ collaboration.project.title }}</p>
+                                            <p class="mb-3">{{ collaboration.message }}</p>
+                                            
+                                            <form method="post">
+                                                {% csrf_token %}
+                                                <input type="hidden" name="collaboration_id" value="{{ collaboration.id }}">
+
+                                                <!-- Bouton Accepter -->
+                                                <button type="submit" name="action" value="approve" class="btn btn-success">
+                                                    Accepter
+                                                </button>
+
+                                                <!-- Bouton Refuser -->
+                                                <button type="submit" name="action" value="reject" class="btn btn-danger">
+                                                    Refuser
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    {% else %}
+                    <div class="tab-pane fade show active" id="requests" role="tabpanel">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="alert alert-info">
+                                    <h6 class="mb-1">Aucune demande en attente</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+
+                    <!-- Sent Requests -->
+                    <div class="tab-pane fade" id="sent" role="tabpanel">
+                        <div class="row">
+                            <div class="col-lg-8">
+                                <div class="collaboration-request">
+                                    <div class="d-flex align-items-start">
+                                        <div class="user-avatar me-3">AB</div>
+                                        <div class="flex-grow-1">
+                                            <div class="d-flex justify-content-between align-items-start mb-2">
+                                                <div>
+                                                    <h6 class="mb-1">Dr. Ahmed Ben Ali</h6>
+                                                    <small class="text-muted">Envoyée il y a 3 jours</small>
+                                                </div>
+                                                <span class="badge bg-success">Acceptée</span>
+                                            </div>
+                                            <p class="mb-2"><strong>Projet:</strong> Détection d'Objets Médicaux</p>
+                                            <p class="mb-3">Votre message: "Bonjour, j'aimerais contribuer à votre projet de computer vision médicale..."</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Active Collaborations -->
+                    <div class="tab-pane fade" id="active" role="tabpanel">
+                        <div class="row">
+                            <div class="col-lg-8">
+                                <div class="card shadow">
+                                    <div class="card-header">
+                                        <h6 class="mb-0">Prédiction de Churn Client</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <h6>Collaborateurs (4)</h6>
+                                                <div class="d-flex align-items-center mb-2">
+                                                    <div class="user-avatar me-2" style="width: 30px; height: 30px; font-size: 0.8rem;">JM</div>
+                                                    <span>Jean Martin</span>
+                                                </div>
+                                                <div class="d-flex align-items-center mb-2">
+                                                    <div class="user-avatar me-2" style="width: 30px; height: 30px; font-size: 0.8rem;">SD</div>
+                                                    <span>Sarah Dubois</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <h6>Activité Récente</h6>
+                                                <small class="text-muted">Notebook mis à jour il y a 2h</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

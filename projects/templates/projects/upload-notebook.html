@@ -1,0 +1,85 @@
+                <form method="post" enctype="multipart/form-data">
+{% extends 'projects/base.html' %}
+
+{% load static %}
+
+
+{% block content %}   
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="main-content-inner">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                <!-- Header -->
+                <div class="text-center mb-5">
+                    <h2 class="mb-3">Charger un notebook</h2>
+                    <p class="text-muted">Partagez votre recherche et collaborez avec la communauté Data Science</p>
+                </div>
+
+                <!-- Project Creation Form -->
+                <div class="card shadow">
+                    <div class="card-body p-4">
+            
+                            <!-- Step 1: Basic Information -->
+                            <div class="step-section" id="step1">
+                                <h5 class="mb-4">
+                                    <span class="badge bg-primary me-2">1</span>
+                                    Informations de base
+                                </h5>
+                                
+                                <form method="POST">
+                                {% csrf_token %}
+                                <div class="row">
+                                    <div class="col-md-12 mb-3">
+                                        <label for="projectTitle" class="form-label">Titre</label>
+                                        {{ form.title }}
+                                    </div>
+                                    <div class="col-md-12 mb-3">
+                                        <label for="analysisType" class="form-label">Description</label>
+                                        {{ form.description }}
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="projectDescription" class="form-label">chrager le fichier</label>
+                                    
+                                              {{ form.file }}
+                                   
+                                </div>
+
+                               
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary">Enregistrer</button>
+                            </form>
+
+                            
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <!-- <div class="modal fade" id="successModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body text-center p-4">
+                    <div class="mb-3">
+                        <i class="fas fa-check-circle fa-4x text-success"></i>
+                    </div>
+                    <h4 class="mb-3">Projet créé avec succès!</h4>
+                    <p class="text-muted mb-4">Votre projet a été publié et est maintenant visible par la communauté.</p>
+                    <div class="d-flex gap-2 justify-content-center">
+                        <a href="projects.html" class="btn btn-outline-primary">Voir tous les projets</a>
+                        <a href="project-detail.html" class="btn btn-primary">Voir mon projet</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> -->
+
+{% endblock%}

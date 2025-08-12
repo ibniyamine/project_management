@@ -1,0 +1,359 @@
+{% extends 'projects/base.html' %}
+
+{% load static %}
+
+
+{% block content %}    
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="main-content-inner">
+            <div class="container-fluid">
+                <!-- Welcome Section -->
+                <div class="row mb-4">
+                    <div class="col-12">
+                        <div class="welcome-card">
+                            <h2 class="mb-2">Bienvenue, {{user.username}}!</h2>
+                            <p class="text-muted">Voici un aperçu de vos activités Data Science collaboratives.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- KPI Cards -->
+                <div class="row mb-4">
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card kpi-card border-left-primary">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                            Projets Actifs
+                                        </div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ total_projects }}</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fas fa-project-diagram fa-2x text-primary"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card kpi-card border-left-success">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                            Demande
+                                        </div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ pending_count }}</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fas fa-users fa-2x text-success"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card kpi-card border-left-info">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                            Notebooks Publiés
+                                        </div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ notebook }}</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fas fa-book fa-2x text-info"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card kpi-card border-left-warning">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                            Note Moyenne
+                                        </div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">4.7/5</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fas fa-star fa-2x text-warning"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="tab-content">
+                            <div class="tab-pane fade show active" id="all-projects">
+                                <div class="row">
+                                    <!-- Project Card 1 -->
+                                    {% for project in user_projects %}
+                                    <div class="col-lg-4 col-md-6 mb-4">
+                                        <div class="card h-100 shadow-sm">
+                                            <div class="card-header d-flex justify-content-between align-items-center">
+                                                <span class="badge bg-success">{{project.status}}</span>
+                                                <div class="dropdown">
+                                                    <button class="btn btn-sm btn-outline-secondary" data-bs-toggle="dropdown">
+                                                        <i class="fas fa-ellipsis-v"></i>
+                                                    </button>
+                                                    <ul class="dropdown-menu">
+                                                        <li><a class="dropdown-item" href="{% url 'project_detail' project.id %}">Voir détails</a></li>
+                                                        
+                                                        <li><hr class="dropdown-divider"></li>
+                                                       
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div class="card-body">
+                                                <h5 class="card-title">{{project.title}}</h5>
+                                                <p class="card-text text-muted">{{ project.description}}</p>
+                                                <div class="mb-3">
+                                                    <span class="badge bg-light text-dark me-1">{{project.analysis_type}}</span>
+                                                    <!-- <span class="badge bg-light text-dark me-1">Python</span> -->
+                                                </div>
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <small class="text-muted">{{project.created_at}}</small>
+                                                    <div>
+                                                        <i class="fas fa-book text-muted me-1"></i>
+                                                        <small>{{project.total_notebooks}}</small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+
+                                    <!-- Project Card 2 -->
+                                    <div class="col-lg-4 col-md-6 mb-4">
+                                        <div class="card h-100 shadow-sm">
+                                            <div class="card-header d-flex justify-content-between align-items-center">
+                                                <span class="badge bg-primary">Terminé</span>
+                                                <div class="dropdown">
+                                                    <button class="btn btn-sm btn-outline-secondary" data-bs-toggle="dropdown">
+                                                        <i class="fas fa-ellipsis-v"></i>
+                                                    </button>
+                                                    <ul class="dropdown-menu">
+                                                        <li><a class="dropdown-item" href="project-detail.html">Voir détails</a></li>
+                                                        <li><a class="dropdown-item" href="#">Modifier</a></li>
+                                                        <li><hr class="dropdown-divider"></li>
+                                                        <li><a class="dropdown-item text-danger" href="#">Supprimer</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div class="card-body">
+                                                <h5 class="card-title">Analyse de Sentiment Twitter</h5>
+                                                <p class="card-text text-muted">Classification automatique des sentiments dans les tweets en utilisant des techniques de NLP.</p>
+                                                <div class="mb-3">
+                                                    <span class="badge bg-light text-dark me-1">NLP</span>
+                                                    <span class="badge bg-light text-dark me-1">Classification</span>
+                                                </div>
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <small class="text-muted">Créé le 2 Nov 2024</small>
+                                                    <div>
+                                                        <i class="fas fa-book text-muted me-1"></i>
+                                                        <small>5 notebooks</small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Project Card 3 -->
+                                    <div class="col-lg-4 col-md-6 mb-4">
+                                        <div class="card h-100 shadow-sm">
+                                            <div class="card-header d-flex justify-content-between align-items-center">
+                                                <span class="badge bg-warning">En pause</span>
+                                                <div class="dropdown">
+                                                    <button class="btn btn-sm btn-outline-secondary" data-bs-toggle="dropdown">
+                                                        <i class="fas fa-ellipsis-v"></i>
+                                                    </button>
+                                                    <ul class="dropdown-menu">
+                                                        <li><a class="dropdown-item" href="project-detail.html">Voir détails</a></li>
+                                                        <li><a class="dropdown-item" href="#">Modifier</a></li>
+                                                        <li><hr class="dropdown-divider"></li>
+                                                        <li><a class="dropdown-item text-danger" href="#">Supprimer</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div class="card-body">
+                                                <h5 class="card-title">Clustering de Clients</h5>
+                                                <p class="card-text text-muted">Segmentation des clients basée sur leurs comportements d'achat pour optimiser les stratégies marketing.</p>
+                                                <div class="mb-3">
+                                                    <span class="badge bg-light text-dark me-1">Clustering</span>
+                                                    <span class="badge bg-light text-dark me-1">Marketing</span>
+                                                </div>
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <small class="text-muted">Créé le 28 Oct 2024</small>
+                                                    <div>
+                                                        <i class="fas fa-book text-muted me-1"></i>
+                                                        <small>2 notebooks</small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="tab-pane fade" id="active-projects">
+                                <div class="text-center py-5">
+                                    <i class="fas fa-play fa-3x text-muted mb-3"></i>
+                                    <h5>Projets actifs</h5>
+                                    <p class="text-muted">Vos projets en cours de développement apparaîtront ici.</p>
+                                </div>
+                            </div>
+
+                            <div class="tab-pane fade" id="completed-projects">
+                                <div class="text-center py-5">
+                                    <i class="fas fa-check fa-3x text-muted mb-3"></i>
+                                    <h5>Projets terminés</h5>
+                                    <p class="text-muted">Vos projets terminés apparaîtront ici.</p>
+                                </div>
+                            </div>
+                        </div>
+                <!-- Charts Row -->
+                <div class="row mb-4">
+                    <div class="col-xl-8 col-lg-7">
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold text-primary">Activité des Projets</h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="chart-area">
+                                    <canvas id="projectsChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-4 col-lg-5">
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold text-primary">Types d'Analyses</h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="chart-pie pt-4 pb-2">
+                                    <canvas id="analysisChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Projects -->
+                <div class="row">
+                    <div class="col-lg-6 mb-4">
+                        <div class="card shadow">
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold text-primary">Projets Récents</h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="project-item">
+                                    <div class="d-flex align-items-center mb-3">
+                                        <div class="project-icon bg-primary">
+                                            <i class="fas fa-brain text-white"></i>
+                                        </div>
+                                        <div class="ms-3">
+                                            <h6 class="mb-1">Prédiction de Churn Client</h6>
+                                            <small class="text-muted">Classification • Mis à jour il y a 2h</small>
+                                        </div>
+                                        <div class="ms-auto">
+                                            <span class="badge bg-success">Actif</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="project-item">
+                                    <div class="d-flex align-items-center mb-3">
+                                        <div class="project-icon bg-info">
+                                            <i class="fas fa-chart-scatter text-white"></i>
+                                        </div>
+                                        <div class="ms-3">
+                                            <h6 class="mb-1">Analyse de Sentiment Twitter</h6>
+                                            <small class="text-muted">NLP • Mis à jour il y a 1j</small>
+                                        </div>
+                                        <div class="ms-auto">
+                                            <span class="badge bg-warning">En cours</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="project-item">
+                                    <div class="d-flex align-items-center">
+                                        <div class="project-icon bg-success">
+                                            <i class="fas fa-layer-group text-white"></i>
+                                        </div>
+                                        <div class="ms-3">
+                                            <h6 class="mb-1">Clustering E-commerce</h6>
+                                            <small class="text-muted">Clustering • Mis à jour il y a 3j</small>
+                                        </div>
+                                        <div class="ms-auto">
+                                            <span class="badge bg-secondary">Terminé</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6 mb-4">
+                        <div class="card shadow">
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold text-primary">Notifications</h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="notification-item">
+                                    <div class="d-flex align-items-start mb-3">
+                                        <div class="notification-icon bg-primary">
+                                            <i class="fas fa-user-plus text-white"></i>
+                                        </div>
+                                        <div class="ms-3">
+                                            <h6 class="mb-1">Nouvelle demande de collaboration</h6>
+                                            <p class="mb-1 small">Jean Martin souhaite rejoindre "Analyse de Sentiment"</p>
+                                            <small class="text-muted">Il y a 30 min</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="notification-item">
+                                    <div class="d-flex align-items-start mb-3">
+                                        <div class="notification-icon bg-success">
+                                            <i class="fas fa-star text-white"></i>
+                                        </div>
+                                        <div class="ms-3">
+                                            <h6 class="mb-1">Nouveau commentaire</h6>
+                                            <p class="mb-1 small">Votre projet "Clustering E-commerce" a reçu 5 étoiles</p>
+                                            <small class="text-muted">Il y a 2h</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="notification-item">
+                                    <div class="d-flex align-items-start">
+                                        <div class="notification-icon bg-info">
+                                            <i class="fas fa-upload text-white"></i>
+                                        </div>
+                                        <div class="ms-3">
+                                            <h6 class="mb-1">Notebook mis à jour</h6>
+                                            <p class="mb-1 small">Sarah Dubois a publié une nouvelle version</p>
+                                            <small class="text-muted">Il y a 4h</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock%}

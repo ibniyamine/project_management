@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projets Partagés - DataCollab</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="assets/css/style.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <!-- Sidebar Header -->
+        <div class="sidebar-header">
+            <a href="index.html" class="sidebar-brand">
+                <i class="fas fa-chart-line me-2"></i>DataCollab
+            </a>
+        </div>
+        
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar-nav">
+            <!-- Main Navigation -->
+            <div class="nav-section">
+                <div class="nav-section-title">Navigation Principale</div>
+                <a href="index.html" class="nav-link">
+                    <i class="fas fa-tachometer-alt"></i>Dashboard
+                </a>
+                <a href="projects.html" class="nav-link">
+                    <i class="fas fa-project-diagram"></i>Projets
+                </a>
+                <a href="create-project.html" class="nav-link">
+                    <i class="fas fa-plus-circle"></i>Nouveau Projet
+                </a>
+                <a href="collaborations.html" class="nav-link">
+                    <i class="fas fa-users"></i>Collaborations
+                </a>
+            </div>
+            
+            <!-- Quick Access -->
+            <div class="nav-section">
+                <div class="nav-section-title">Accès Rapide</div>
+                <a href="my-projects.html" class="nav-link">
+                    <i class="fas fa-folder"></i>Mes Projets
+                </a>
+                <a href="shared-projects.html" class="nav-link active">
+                    <i class="fas fa-share-alt"></i>Projets Partagés
+                </a>
+                <a href="notebooks.html" class="nav-link">
+                    <i class="fas fa-book"></i>Notebooks
+                </a>
+                <a href="analytics.html" class="nav-link">
+                    <i class="fas fa-chart-bar"></i>Analytiques
+                </a>
+            </div>
+            
+            <!-- User Section -->
+            <div class="nav-section">
+                <div class="nav-section-title">Profil</div>
+                <a href="profile.html" class="nav-link">
+                    <i class="fas fa-user"></i>Mon Profil
+                </a>
+                <a href="settings.html" class="nav-link">
+                    <i class="fas fa-cog"></i>Paramètres
+                </a>
+            </div>
+        </nav>
+    </div>
+
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <button class="mobile-toggle" id="sidebarToggle">
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="d-flex align-items-center">
+            <button class="btn theme-toggle me-3" id="themeToggle">
+                <i class="fas fa-moon" id="themeIcon"></i>
+                <span class="ms-2" id="themeText">Mode Sombre</span>
+            </button>
+            <div class="dropdown">
+                <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button" data-bs-toggle="dropdown">
+                    <i class="fas fa-user-circle me-2"></i>
+                    <div class="d-flex flex-column align-items-start">
+                        <span class="fw-bold">Dr. Marie Dupont</span>
+                        <small class="text-muted">Chercheur</small>
+                    </div>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end">
+                    <li><a class="dropdown-item" href="profile.html"><i class="fas fa-user me-2"></i>Profil</a></li>
+                    <li><a class="dropdown-item" href="settings.html"><i class="fas fa-cog me-2"></i>Paramètres</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="login.html"><i class="fas fa-sign-out-alt me-2"></i>Déconnexion</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="main-content-inner">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <h2 class="mb-4">Projets Partagés</h2>
+                        <p class="text-muted mb-4">Projets auxquels vous participez en tant que collaborateur</p>
+
+                        <!-- Stats Cards -->
+                        <div class="row mb-4">
+                            <div class="col-md-4">
+                                <div class="card bg-info text-white">
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between">
+                                            <div>
+                                                <h4>12</h4>
+                                                <p class="mb-0">Collaborations Actives</p>
+                                            </div>
+                                            <i class="fas fa-handshake fa-2x opacity-75"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="card bg-success text-white">
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between">
+                                            <div>
+                                                <h4>8</h4>
+                                                <p class="mb-0">Contributions</p>
+                                            </div>
+                                            <i class="fas fa-code-branch fa-2x opacity-75"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="card bg-warning text-white">
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between">
+                                            <div>
+                                                <h4>15</h4>
+                                                <p class="mb-0">Notebooks Partagés</p>
+                                            </div>
+                                            <i class="fas fa-share fa-2x opacity-75"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Shared Projects List -->
+                        <div class="row">
+                            <!-- Shared Project 1 -->
+                            <div class="col-lg-6 mb-4">
+                                <div class="card h-100 shadow-sm">
+                                    <div class="card-header d-flex justify-content-between align-items-center">
+                                        <div class="d-flex align-items-center">
+                                            <div class="user-avatar me-2">JM</div>
+                                            <div>
+                                                <small class="fw-bold">Jean Martin</small>
+                                                <br><small class="text-muted">Propriétaire</small>
+                                            </div>
+                                        </div>
+                                        <span class="badge bg-success">Actif</span>
+                                    </div>
+                                    <div class="card-body">
+                                        <h5 class="card-title">Détection de Fraude Bancaire</h5>
+                                        <p class="card-text text-muted">Développement d'un système de détection de fraude en temps réel pour les transactions bancaires.</p>
+                                        <div class="mb-3">
+                                            <span class="badge bg-light text-dark me-1">Classification</span>
+                                            <span class="badge bg-light text-dark me-1">Anomaly Detection</span>
+                                        </div>
+                                        <div class="d-flex justify-content-between align-items-center mb-3">
+                                            <small class="text-muted">Rejoint le 10 Nov 2024</small>
+                                            <div>
+                                                <i class="fas fa-users text-muted me-1"></i>
+                                                <small>5 collaborateurs</small>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <span class="badge bg-primary">Chercheur</span>
+                                            <div>
+                                                <a href="project-detail.html" class="btn btn-sm btn-outline-primary">Voir projet</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Shared Project 2 -->
+                            <div class="col-lg-6 mb-4">
+                                <div class="card h-100 shadow-sm">
+                                    <div class="card-header d-flex justify-content-between align-items-center">
+                                        <div class="d-flex align-items-center">
+                                            <div class="user-avatar me-2">SD</div>
+                                            <div>
+                                                <small class="fw-bold">Sarah Dubois</small>
+                                                <br><small class="text-muted">Propriétaire</small>
+                                            </div>
+                                        </div>
+                                        <span class="badge bg-info">En cours</span>
+                                    </div>
+                                    <div class="card-body">
+                                        <h5 class="card-title">Prédiction Prix Immobilier</h5>
+                                        <p class="card-text text-muted">Modèle de régression pour prédire les prix immobiliers basé sur diverses caractéristiques.</p>
+                                        <div class="mb-3">
+                                            <span class="badge bg-light text-dark me-1">Régression</span>
+                                            <span class="badge bg-light text-dark me-1">Immobilier</span>
+                                        </div>
+                                        <div class="d-flex justify-content-between align-items-center mb-3">
+                                            <small class="text-muted">Rejoint le 5 Nov 2024</small>
+                                            <div>
+                                                <i class="fas fa-users text-muted me-1"></i>
+                                                <small>3 collaborateurs</small>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <span class="badge bg-primary">Chercheur</span>
+                                            <div>
+                                                <a href="project-detail.html" class="btn btn-sm btn-outline-primary">Voir projet</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Shared Project 3 -->
+                            <div class="col-lg-6 mb-4">
+                                <div class="card h-100 shadow-sm">
+                                    <div class="card-header d-flex justify-content-between align-items-center">
+                                        <div class="d-flex align-items-center">
+                                            <div class="user-avatar me-2">PL</div>
+                                            <div>
+                                                <small class="fw-bold">Pierre Leroy</small>
+                                                <br><small class="text-muted">Propriétaire</small>
+                                            </div>
+                                        </div>
+                                        <span class="badge bg-warning">En pause</span>
+                                    </div>
+                                    <div class="card-body">
+                                        <h5 class="card-title">Analyse de Réseaux Sociaux</h5>
+                                        <p class="card-text text-muted">Étude des patterns de communication et d'influence dans les réseaux sociaux.</p>
+                                        <div class="mb-3">
+                                            <span class="badge bg-light text-dark me-1">Network Analysis</span>
+                                            <span class="badge bg-light text-dark me-1">Social Media</span>
+                                        </div>
+                                        <div class="d-flex justify-content-between align-items-center mb-3">
+                                            <small class="text-muted">Rejoint le 1 Nov 2024</small>
+                                            <div>
+                                                <i class="fas fa-users text-muted me-1"></i>
+                                                <small>4 collaborateurs</small>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <span class="badge bg-secondary">Étudiant</span>
+                                            <div>
+                                                <a href="project-detail.html" class="btn btn-sm btn-outline-primary">Voir projet</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Shared Project 4 -->
+                            <div class="col-lg-6 mb-4">
+                                <div class="card h-100 shadow-sm">
+                                    <div class="card-header d-flex justify-content-between align-items-center">
+                                        <div class="d-flex align-items-center">
+                                            <div class="user-avatar me-2">AB</div>
+                                            <div>
+                                                <small class="fw-bold">Dr. Ahmed Ben Ali</small>
+                                                <br><small class="text-muted">Propriétaire</small>
+                                            </div>
+                                        </div>
+                                        <span class="badge bg-primary">Terminé</span>
+                                    </div>
+                                    <div class="card-body">
+                                        <h5 class="card-title">Classification d'Images Médicales</h5>
+                                        <p class="card-text text-muted">Classification automatique d'images radiologiques pour l'aide au diagnostic.</p>
+                                        <div class="mb-3">
+                                            <span class="badge bg-light text-dark me-1">Computer Vision</span>
+                                            <span class="badge bg-light text-dark me-1">Médical</span>
+                                        </div>
+                                        <div class="d-flex justify-content-between align-items-center mb-3">
+                                            <small class="text-muted">Rejoint le 20 Oct 2024</small>
+                                            <div>
+                                                <i class="fas fa-users text-muted me-1"></i>
+                                                <small>6 collaborateurs</small>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <span class="badge bg-primary">Chercheur</span>
+                                            <div>
+                                                <a href="project-detail.html" class="btn btn-sm btn-outline-primary">Voir projet</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Empty State (if no shared projects) -->
+                        <div class="text-center py-5 d-none" id="emptyState">
+                            <i class="fas fa-share-alt fa-3x text-muted mb-3"></i>
+                            <h5>Aucun projet partagé</h5>
+                            <p class="text-muted">Vous ne participez à aucun projet en tant que collaborateur pour le moment.</p>
+                            <a href="projects.html" class="btn btn-primary">Explorer les projets</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/common.js"></script>
+</body>
+</html>

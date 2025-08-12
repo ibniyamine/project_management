@@ -1,0 +1,647 @@
+<!-- {% load static %} -->
+
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DataCollab - Plateforme Collaborative de Data Science</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="{%  static 'css/style.css' %}" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="home.html">
+                <i class="fas fa-chart-line me-2"></i>DataCollab
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#features">Fonctionnalités</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#how-it-works">Comment ça marche</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#pricing">Tarifs</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Contact</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <button class="btn theme-toggle me-3" id="themeToggle">
+                            <i class="fas fa-moon" id="themeIcon"></i>
+                        </button>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'login' %}"><i class="fas fa-sign-in-alt me-1"></i>Se connecter</a>
+                            <!-- <i class="fas fa-sign-in-alt me-1"></i>Connexion -->
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn btn-outline-light ms-2" href="{% url 'register' %}"><i class="fas fa-user-plus me-1"></i>S'inscrire</a>
+                           
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <div class="row align-items-center min-vh-100">
+                <div class="col-lg-6">
+                    <div class="hero-content">
+                        <h1 class="display-4 fw-bold text-white mb-4">
+                            Collaborez sur vos projets de <span class="text-warning">Data Science</span>
+                        </h1>
+                        <p class="lead text-white-50 mb-4">
+                            DataCollab est la plateforme collaborative qui permet aux data scientists, chercheurs et étudiants de créer, partager et évaluer leurs projets ensemble.
+                        </p>
+                        <div class="d-flex flex-wrap gap-3 mb-4">
+                            <a href="{% url 'register' %}" class="btn btn-warning btn-lg">
+                                <i class="fas fa-rocket me-2"></i>Commencer maintenant
+                            </a>
+                        </div>
+                        <div class="hero-stats">
+                            <div class="row text-center">
+                                <div class="col-4">
+                                    <h3 class="text-warning">500+</h3>
+                                    <small class="text-white-50">Projets</small>
+                                </div>
+                                <div class="col-4">
+                                    <h3 class="text-warning">1.2K+</h3>
+                                    <small class="text-white-50">Utilisateurs</small>
+                                </div>
+                                <div class="col-4">
+                                    <h3 class="text-warning">2.5K+</h3>
+                                    <small class="text-white-50">Notebooks</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="hero-image">
+                        <div class="dashboard-preview">
+                            <div class="preview-header">
+                                <div class="preview-dots">
+                                    <span></span><span></span><span></span>
+                                </div>
+                            </div>
+                            <div class="preview-content">
+                                <div class="preview-sidebar"></div>
+                                <div class="preview-main">
+                                    <div class="preview-cards">
+                                        <div class="preview-card"></div>
+                                        <div class="preview-card"></div>
+                                        <div class="preview-card"></div>
+                                        <div class="preview-card"></div>
+                                    </div>
+                                    <div class="preview-chart"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center mb-5">
+                    <h2 class="display-5 fw-bold">Fonctionnalités puissantes</h2>
+                    <p class="lead text-muted">Tout ce dont vous avez besoin pour collaborer efficacement</p>
+                </div>
+            </div>
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6">
+                    <div class="feature-card text-center h-100">
+                        <div class="feature-icon">
+                            <i class="fas fa-project-diagram"></i>
+                        </div>
+                        <h4>Gestion de Projets</h4>
+                        <p class="text-muted">Créez, organisez et gérez vos projets de data science avec des outils intuitifs.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="feature-card text-center h-100">
+                        <div class="feature-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h4>Collaboration</h4>
+                        <p class="text-muted">Invitez des collaborateurs, définissez des rôles et travaillez ensemble en temps réel.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="feature-card text-center h-100">
+                        <div class="feature-icon">
+                            <i class="fas fa-book"></i>
+                        </div>
+                        <h4>Notebooks Jupyter</h4>
+                        <p class="text-muted">Partagez et visualisez vos notebooks Jupyter avec la communauté.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="feature-card text-center h-100">
+                        <div class="feature-icon">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <h4>Système d'Évaluation</h4>
+                        <p class="text-muted">Évaluez et commentez les projets pour améliorer la qualité.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="feature-card text-center h-100">
+                        <div class="feature-icon">
+                            <i class="fas fa-chart-bar"></i>
+                        </div>
+                        <h4>Analytics</h4>
+                        <p class="text-muted">Suivez les performances de vos projets avec des tableaux de bord détaillés.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="feature-card text-center h-100">
+                        <div class="feature-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h4>Sécurité</h4>
+                        <p class="text-muted">Vos données sont protégées avec les dernières technologies de sécurité.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How it works Section -->
+    <section id="how-it-works" class="py-5 bg-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center mb-5">
+                    <h2 class="display-5 fw-bold">Comment ça marche</h2>
+                    <p class="lead text-muted">Commencez votre collaboration en 3 étapes simples</p>
+                </div>
+            </div>
+            <div class="row g-4">
+                <div class="col-lg-4">
+                    <div class="step-card text-center">
+                        <div class="step-number">1</div>
+                        <h4>Créez votre projet</h4>
+                        <p class="text-muted">Définissez votre projet, ajoutez une description et téléchargez vos notebooks.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="step-card text-center">
+                        <div class="step-number">2</div>
+                        <h4>Invitez des collaborateurs</h4>
+                        <p class="text-muted">Recherchez et invitez d'autres data scientists à rejoindre votre projet.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="step-card text-center">
+                        <div class="step-number">3</div>
+                        <h4>Collaborez et partagez</h4>
+                        <p class="text-muted">Travaillez ensemble, partagez vos résultats et obtenez des retours.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center mb-5">
+                    <h2 class="display-5 fw-bold">Tarifs simples</h2>
+                    <p class="lead text-muted">Choisissez le plan qui vous convient</p>
+                </div>
+            </div>
+            <div class="row g-4 justify-content-center">
+                <div class="col-lg-4 col-md-6">
+                    <div class="pricing-card">
+                        <div class="pricing-header">
+                            <h4>Gratuit</h4>
+                            <div class="price">
+                                <span class="currency">€</span>
+                                <span class="amount">0</span>
+                                <span class="period">/mois</span>
+                            </div>
+                        </div>
+                        <ul class="pricing-features">
+                            <li><i class="fas fa-check text-success"></i> 3 projets publics</li>
+                            <li><i class="fas fa-check text-success"></i> Collaboration limitée</li>
+                            <li><i class="fas fa-check text-success"></i> 100MB de stockage</li>
+                            <li><i class="fas fa-check text-success"></i> Support communautaire</li>
+                        </ul>
+                        <a href="register.html" class="btn btn-outline-primary w-100">Commencer</a>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="pricing-card featured">
+                        <div class="pricing-badge">Populaire</div>
+                        <div class="pricing-header">
+                            <h4>Pro</h4>
+                            <div class="price">
+                                <span class="currency">€</span>
+                                <span class="amount">19</span>
+                                <span class="period">/mois</span>
+                            </div>
+                        </div>
+                        <ul class="pricing-features">
+                            <li><i class="fas fa-check text-success"></i> Projets illimités</li>
+                            <li><i class="fas fa-check text-success"></i> Projets privés</li>
+                            <li><i class="fas fa-check text-success"></i> 10GB de stockage</li>
+                            <li><i class="fas fa-check text-success"></i> Analytics avancées</li>
+                            <li><i class="fas fa-check text-success"></i> Support prioritaire</li>
+                        </ul>
+                        <a href="register.html" class="btn btn-primary w-100">Choisir Pro</a>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="pricing-card">
+                        <div class="pricing-header">
+                            <h4>Entreprise</h4>
+                            <div class="price">
+                                <span class="currency">€</span>
+                                <span class="amount">99</span>
+                                <span class="period">/mois</span>
+                            </div>
+                        </div>
+                        <ul class="pricing-features">
+                            <li><i class="fas fa-check text-success"></i> Tout du plan Pro</li>
+                            <li><i class="fas fa-check text-success"></i> Équipes illimitées</li>
+                            <li><i class="fas fa-check text-success"></i> 100GB de stockage</li>
+                            <li><i class="fas fa-check text-success"></i> Intégrations API</li>
+                            <li><i class="fas fa-check text-success"></i> Support dédié</li>
+                        </ul>
+                        <a href="#contact" class="btn btn-outline-primary w-100">Nous contacter</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-5 bg-primary text-white">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto text-center">
+                    <h2 class="display-5 fw-bold mb-4">Prêt à commencer ?</h2>
+                    <p class="lead mb-4">Rejoignez des milliers de data scientists qui utilisent déjà DataCollab</p>
+                    <div class="d-flex flex-wrap justify-content-center gap-3">
+                        <a href="register.html" class="btn btn-warning btn-lg">
+                            <i class="fas fa-rocket me-2"></i>Créer un compte gratuit
+                        </a>
+                        <a href="mailto:contact@datacollab.com" class="btn btn-outline-light btn-lg">
+                            <i class="fas fa-envelope me-2"></i>Nous contacter
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-4">
+                    <h5><i class="fas fa-chart-line me-2"></i>DataCollab</h5>
+                    <p class="text-muted">La plateforme collaborative pour vos projets de Data Science.</p>
+                    <div class="social-links">
+                        <a href="#" class="text-white me-3"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-white me-3"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" class="text-white me-3"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 mb-4">
+                    <h6>Produit</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="#features" class="text-muted">Fonctionnalités</a></li>
+                        <li><a href="#pricing" class="text-muted">Tarifs</a></li>
+                        <li><a href="#" class="text-muted">API</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 mb-4">
+                    <h6>Ressources</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-muted">Documentation</a></li>
+                        <li><a href="#" class="text-muted">Tutoriels</a></li>
+                        <li><a href="#" class="text-muted">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 mb-4">
+                    <h6>Support</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-muted">Centre d'aide</a></li>
+                        <li><a href="#contact" class="text-muted">Contact</a></li>
+                        <li><a href="#" class="text-muted">Status</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 mb-4">
+                    <h6>Légal</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-muted">Confidentialité</a></li>
+                        <li><a href="#" class="text-muted">Conditions</a></li>
+                        <li><a href="#" class="text-muted">Cookies</a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="my-4">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <p class="mb-0 text-muted">&copy; 2024 DataCollab. Tous droits réservés.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p class="mb-0 text-muted">Fait avec <i class="fas fa-heart text-danger"></i> pour la communauté Data Science</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Theme toggle functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const themeToggle = document.getElementById('themeToggle');
+            const themeIcon = document.getElementById('themeIcon');
+            const body = document.body;
+
+            // Load saved theme
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            body.setAttribute('data-theme', savedTheme);
+            updateThemeIcon(savedTheme);
+
+            themeToggle.addEventListener('click', function() {
+                const currentTheme = body.getAttribute('data-theme');
+                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                
+                body.setAttribute('data-theme', newTheme);
+                localStorage.setItem('theme', newTheme);
+                updateThemeIcon(newTheme);
+            });
+
+            function updateThemeIcon(theme) {
+                if (theme === 'dark') {
+                    themeIcon.className = 'fas fa-sun';
+                } else {
+                    themeIcon.className = 'fas fa-moon';
+                }
+            }
+
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+
+            // Navbar background on scroll
+            window.addEventListener('scroll', function() {
+                const navbar = document.querySelector('.navbar');
+                if (window.scrollY > 50) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+            });
+        });
+    </script>
+
+    <style>
+        .hero-section {
+            background: linear-gradient(135deg, var(--primary-color) 0%, #224abe 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><defs><pattern id="grid" width="50" height="50" patternUnits="userSpaceOnUse"><path d="M 50 0 L 0 0 0 50" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="1"/></pattern></defs><rect width="100%" height="100%" fill="url(%23grid)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .dashboard-preview {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .preview-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .preview-dots {
+            display: flex;
+            gap: 8px;
+        }
+
+        .preview-dots span {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .preview-content {
+            display: flex;
+            gap: 15px;
+            height: 300px;
+        }
+
+        .preview-sidebar {
+            width: 60px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+        }
+
+        .preview-main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .preview-cards {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            height: 100px;
+        }
+
+        .preview-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+        }
+
+        .preview-chart {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+        }
+
+        .feature-card {
+            padding: 2rem;
+            border-radius: 15px;
+            background: white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1.5rem;
+            background: linear-gradient(135deg, var(--primary-color), #224abe);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+        }
+
+        .step-card {
+            padding: 2rem;
+        }
+
+        .step-number {
+            width: 60px;
+            height: 60px;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 0 auto 1.5rem;
+        }
+
+        .pricing-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease;
+            position: relative;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .pricing-card.featured {
+            border: 2px solid var(--primary-color);
+            transform: scale(1.05);
+        }
+
+        .pricing-badge {
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--primary-color);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+
+        .pricing-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .price {
+            font-size: 3rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .currency, .period {
+            font-size: 1rem;
+            color: #6c757d;
+        }
+
+        .pricing-features {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 2rem;
+        }
+
+        .pricing-features li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #f8f9fa;
+        }
+
+        .pricing-features li:last-child {
+            border-bottom: none;
+        }
+
+        .navbar.scrolled {
+            background-color: rgba(78, 115, 223, 0.95) !important;
+            backdrop-filter: blur(10px);
+        }
+
+        /* Dark theme adjustments */
+        [data-theme="dark"] .feature-card,
+        [data-theme="dark"] .pricing-card {
+            background-color: var(--card-bg);
+            color: var(--text-color);
+        }
+
+        [data-theme="dark"] .bg-light {
+            background-color: var(--bg-color) !important;
+        }
+
+        [data-theme="dark"] .text-muted {
+            color: var(--text-muted) !important;
+        }
+    </style>
+</body>
+</html>

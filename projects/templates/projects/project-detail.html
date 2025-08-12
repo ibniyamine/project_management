@@ -1,0 +1,284 @@
+{% extends 'projects/base.html' %}
+
+{% load static %}
+
+
+{% block content %}    
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="main-content-inner">
+            <div class="container-fluid">
+        <!-- Project Header -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card shadow">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <div class="flex-grow-1">
+                                <div class="d-flex align-items-center mb-3">
+                                    <div class="project-icon bg-primary me-3" style="width: 60px; height: 60px;">
+                                        <i class="fas fa-brain text-white fa-2x"></i>
+                                    </div>
+                                    <div>
+                                        <h2 class="mb-1">{{project.title}} </h2>
+                                        <div class="d-flex align-items-center">
+                                            <span class="badge bg-primary me-2">{{project.analysis_type}}</span>
+                                            <span class="badge bg-success me-2">{{project.status}}</span>
+                                            <div class="rating me-3">
+                                                {% for note in note_entier %}
+                                                <i class="fas fa-star"></i>
+                                                {% endfor %}
+                                                
+                                                <span class="ms-1">{{note_moyenne}} ({{total_notes}} notes)</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <p class="text-muted mb-3">
+                                   {{project.description}}
+                                </p>
+                                <div class="d-flex align-items-center text-muted">
+                                    <div class="me-4">
+                                        <i class="fas fa-user me-1"></i>
+                                        <strong>{{project.creator.username}}</strong> • {{project.creator.role}}
+                                    </div>
+                                    <div class="me-4">
+                                        <i class="fas fa-calendar me-1"></i>
+                                        {{project.created_at}}
+                                    </div>
+            
+                                </div>
+                            </div>
+                            <div class="d-flex flex-column gap-2">
+                                <a class="btn btn-primary" href="{% url 'request_collaboration' project.pk %}">
+                                    <i class="fas fa-user-plus me-1"></i>Rejoindre
+                                </a>
+                                <button class="btn btn-outline-secondary">
+                                    <i class="fas fa-star me-1"></i>Favoris
+                                </button>
+                                <button class="btn btn-outline-secondary">
+                                    <i class="fas fa-share me-1"></i>Partager
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Main Content -->
+            <div class="col-lg-8">
+                <!-- Project Stats -->
+                <div class="row mb-3">
+                    <div class="col-md-4 mb-3">
+                        <div class="card text-center">
+                            <div class="card-body">
+                                <h4 class="text-primary">{{collaboration}}</h4>
+                                <small class="text-muted">Collaborateurs</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <div class="card text-center">
+                            <div class="card-body">
+                                <h4 class="text-success">{{ notebook_count }}</h4>
+                                <small class="text-muted">Notebooks</small>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-4 mb-3">
+                        <div class="card text-center">
+                            <div class="card-body">
+                                <h4 class="text-warning">{{comments_count}}</h4>
+                                <small class="text-muted">Commentaires</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Notebooks Section -->
+                <div class="card shadow mb-3">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">
+                            <i class="fas fa-book me-2"></i>Notebooks Jupyter
+                        </h5>
+                        <a class="btn btn-primary btn-sm" href="{% url 'upload_notebook' project.pk %}" data-bs-target="#uploadNotebookModal">
+                            <i class="fas fa-plus me-1"></i>Ajouter un notebook
+                        </a>
+                    </div>
+                    <div class="card-body">
+                        <!-- Notebook 1 -->
+                        {% for notebook in notebooks %}
+                        <div class="notebook-item">
+                            <div class="d-flex align-items-center">
+                                <div class="notebook-icon me-3">
+                                    <i class="fas fa-file-code"></i>
+                                </div>
+                                <div class="flex-grow-1">
+                                    <h6 class="mb-1">{{notebook.file}}</h6>
+                                    <p class="mb-1 text-muted">{{notebook.description}}</p>
+                                    <div class="d-flex align-items-center text-muted small">
+                                        <span class="me-3">
+                                            <i class="fas fa-user me-1"></i>{{notebook.author.username}}
+                                        </span>
+                                        <span class="me-3">
+                                            <i class="fas fa-calendar me-1"></i>{{notebook.created_at}}
+                                        </span>
+                                        <!-- <span class="me-3">
+                                            <i class="fas fa-download me-1"></i>127 téléchargements
+                                        </span> -->
+                                    </div>
+                                </div>
+                                <div class="d-flex gap-2">
+                                    <button class="btn btn-outline-primary btn-sm">
+                                        <i class="fas fa-eye me-1"></i>Voir
+                                    </button>
+                                    <button class="btn btn-outline-secondary btn-sm">
+                                        <i class="fas fa-download me-1"></i>Télécharger
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+
+
+                        <!-- Notebook 3 -->
+                        
+                    </div>
+                </div>
+
+                <!-- Comments Section -->
+                <div class="card shadow">
+                    <div class="card-header">
+                        <h5 class="mb-0">
+                            <i class="fas fa-comments me-2"></i>Commentaires et Évaluations
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <!-- Add Comment Form -->
+                        <div class="mb-4">
+                            <div class="d-flex align-items-start">
+                                <div class="comment-avatar me-3">MD</div>
+                                <div class="flex-grow-1">
+                                    <div class="mb-2">
+                                        <form action="" method="post">
+                                            {% csrf_token %}
+                                            <label class="form-label">Votre évaluation</label>
+                                            <div class="rating-input">
+                                            <i class="fas fa-star" data-rating="1"></i>
+                                            <i class="fas fa-star" data-rating="2"></i>
+                                            <i class="fas fa-star" data-rating="3"></i>
+                                            <i class="fas fa-star" data-rating="4"></i>
+                                            <i class="fas fa-star" data-rating="5"></i>
+                                            </div>
+                                            {{ formN.rating}}
+                                        <br>
+                                        <button type="submit" class="btn btn-primary btn-sm" name="action" value="rate_project">Noter</button>
+                                        </form>
+                                    </div>
+                                    <form action="" method="post">
+                                        {% csrf_token %}
+                                            {% if formC %}
+                                            <label for="message">partager votre avis</label>
+                                            {{ formC.content}}
+                                            {% else %}
+                                            <label for="message">Le formulaire n'existe pas</label>
+                                            {% endif %}
+                                        <br>
+                                        <button type="submit" class="btn btn-primary btn-sm" name="action" value="add_comment">
+                                        <i class="fas fa-paper-plane me-1"></i>Publier
+                                        </button>
+                                    </form>
+                                    
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Existing Comments -->
+                         {% if comments %}
+                         {% for comment in comments %}
+                        <div class="comment-item">
+                            <div class="d-flex align-items-start">
+                                <div class="comment-avatar me-3">{{ comment.author.username|slice:":2"|upper }}</div>
+                                <div class="flex-grow-1">
+                                    <div class="d-flex justify-content-between align-items-center mb-1">
+                                        <h6 class="mb-0">{{ comment.author.username}}</h6>
+                    
+                                    </div>
+                                    <small class="text-muted">{{ comment.author.username }} • {{ comment.created_at }}</small>
+                                    <p class="mt-2 mb-0">{{ comment.content }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                        {% else %}
+                            <p>Aucun commentaire pour l’instant.</p>
+                        {% endif %}
+
+                    
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sidebar -->
+            <div class="col-lg-4">
+                <!-- Collaborators -->
+                <div class="card shadow mb-4">
+                    <div class="card-header">
+                        <h6 class="mb-0">Équipe du Projet</h6>
+                    </div>
+                    {% if collaborators %}
+                    {% for collaborator in collaborators %}
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="user-avatar me-3">{{ collaborator.username|slice:":2"|upper }}</div>
+                            <div>
+                                <h6 class="mb-0">{{ collaborator.username}}</h6>
+                                <small class="text-muted">Collaborateur • {{collaborator.role}}</small>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    {% else %}
+                    <p>Aucun collaborateur pour l’instant.</p>
+                    {% endif %}
+                </div>
+
+               
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <!-- Join Project Modal -->
+    <div class="modal fade" id="joinProjectModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Rejoindre le Projet</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Vous souhaitez rejoindre le projet "Prédiction de Churn Client" ?</p>
+                    <div class="mb-3">
+                        <label class="form-label">Message de motivation</label>
+                        <textarea class="form-control" rows="3" placeholder="Expliquez pourquoi vous souhaitez rejoindre ce projet..."></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Vos compétences</label>
+                        <input type="text" class="form-control" placeholder="Python, Machine Learning, Statistiques...">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                    <button type="button" class="btn btn-primary">Envoyer la demande</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}
