@@ -9,6 +9,9 @@ from django.utils import timezone
 from .models import User, Project, Notebook, Collaboration, Rating, Comment
 from .forms import ProjectForm, NotebookForm, CollaborationForm, RatingForm, CommentForm, UserRegistrationForm
 import json
+import nbformat
+from nbconvert import HTMLExporter
+from django.http import HttpResponse
 
 
 def home(request):
@@ -97,7 +100,11 @@ def project_detail(request, pk):
     """Project detail view"""
     project = get_object_or_404(Project, pk=pk)
     notebooks = project.notebooks.all()
-    collaborators = project.collaborators.all()
+    # collaborators = project.collaborators.all()
+    collaborators = User.objects.filter(
+    collaboration_requests__project=project,
+    collaboration_requests__status='approved'
+    ).distinct()
     comments = project.comments.all()[:10]
     notes = Rating.objects.filter(project=project)
     total_notes = notes.count()
@@ -139,6 +146,10 @@ def project_detail(request, pk):
     if request.method == 'POST':
         action = request.POST.get("action")
 
+        if request.user == project.creator:
+            messages.error(request, "Vous ne pouvez pas noter votre propre projet.")
+            return redirect('project_detail', pk=project.pk)
+        
         if action == "add_comment":
             formCommente = CommentForm(request.POST)
             if formCommente.is_valid():
@@ -176,9 +187,7 @@ def project_detail(request, pk):
     #     messages.error(request, "Vous ne pouvez noter que les projets terminés.")
     #     return redirect('project_detail', pk=project.pk)
     
-    # if request.user == project.creator:
-    #     messages.error(request, "Vous ne pouvez pas noter votre propre projet.")
-    #     return redirect('project_detail', pk=project.pk)
+    
 
 
 
@@ -197,7 +206,7 @@ def project_detail(request, pk):
         'formN': formNote,
         'collaboration_status': collaboration_status,
         'user_rating': user_rating,
-        'collaboration': project.collaborators.count(),
+        'collaboration': collaborators.count(),
         'can_collaborate': (
             request.user.is_authenticated and 
             request.user != project.creator and 
@@ -402,3 +411,21 @@ def register(request):
         form = UserRegistrationForm()
     
     return render(request, 'projects/register.html', {'form': form})
+
+
+
+
+def notebook_html_view(request, notebook_pk):
+    # Récupérer le notebook
+    notebook = get_object_or_404(Notebook, pk=notebook_pk)
+    
+    # Charger le fichier .ipynb
+    with open(notebook.file.path, 'r', encoding='utf-8') as f:
+        nb_node = nbformat.read(f, as_version=4)
+    
+    # Convertir en HTML
+    html_exporter = HTMLExporter()
+    body, _ = html_exporter.from_notebook_node(nb_node)
+
+    # Retourner le HTML directement
+    return HttpResponse(body)
