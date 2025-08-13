@@ -429,3 +429,31 @@ def notebook_html_view(request, notebook_pk):
 
     # Retourner le HTML directement
     return HttpResponse(body)
+
+
+def profil(request):
+    # Récupérer l'utilisateur connecté
+    user = request.user
+     # Projets créés par l'utilisateur
+    created_projects = Project.objects.filter(creator=user)
+
+    # Collaborations (projets où il est collaborateur mais pas créateur)
+    collaborations = Project.objects.filter(collaborators=user).exclude(creator=user)
+
+    # Notebooks partagés (adapte le champ selon ton modèle)
+    notebooks = Notebook.objects.filter(author=user)
+    
+    context = {
+        'notebooks':notebooks.count(),
+        'collaborations': collaborations.count(),
+        'created_projects': created_projects.count(),
+        'username': user.username,
+        'email': user.email,
+        'first_name': user.first_name,
+        'last_name': user.last_name,
+        'role': user.role,
+        'bio': user.bio,
+        'last_login': user.last_login,
+    }
+    
+    return render(request, 'projects/profile.html', context)

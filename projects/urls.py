@@ -29,7 +29,9 @@ urlpatterns = [
     path('projects/<int:project_pk>/rate/', views.rate_project, name='rate_project'),
 
     # voir le notebook
-    path('projects/<int:notebook_pk>/notebook/', views.notebook_html_view, name='notebook_view')
+    path('projects/<int:notebook_pk>/notebook/', views.notebook_html_view, name='notebook_view'),
+
+    path('projects/profil', views.profil, name='profil'),
 
     
 ]
