@@ -44,9 +44,9 @@
                                 <div class="row no-gutters align-items-center">
                                     <div class="col mr-2">
                                         <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                            Demande
+                                            Collaborations
                                         </div>
-                                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ pending_count }}</div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ total_collaborations }}</div>
                                     </div>
                                     <div class="col-auto">
                                         <i class="fas fa-users fa-2x text-success"></i>
@@ -82,7 +82,7 @@
                                         <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
                                             Note Moyenne
                                         </div>
-                                        <div class="h5 mb-0 font-weight-bold text-gray-800">4.7/5</div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{note_moyenne}}/{{note_count}}</div>
                                     </div>
                                     <div class="col-auto">
                                         <i class="fas fa-star fa-2x text-warning"></i>

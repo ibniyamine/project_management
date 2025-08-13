@@ -29,9 +29,14 @@ def dashboard(request):
     # user_projects = Project.objects.filter(creator=request.user)
     user_projects = Project.objects.filter(status__in=['active', 'completed'])
     notebook = Notebook.objects.all()
+    collaborations = Collaboration.objects.filter(status='approved')
+    notes = Rating.objects.all()
+    note_moyenne = notes.aggregate(Avg('rating'))['rating__avg'] or 0
+    note_moyenne = round(note_moyenne, 1)
+    note_count = notes.count()
 
     # collaborated_projects = Project.objects.filter(collaborators=request.user)
-    collaborated_projects = Project.objects.all()
+    # collaborated_projects = Project.objects.all()
     
 
     pending_requests = Collaboration.objects.filter(
@@ -40,13 +45,14 @@ def dashboard(request):
     )
     
     context = {
+        'note_count': note_count,
         'user_projects': user_projects,
-        'collaborated_projects': collaborated_projects,
         'pending_requests': pending_requests,
         'total_projects': user_projects.count(),
-        'total_collaborations': collaborated_projects.count(),
+        'total_collaborations': collaborations.count(),
         'pending_count': pending_requests.count(),
-        'notebook': notebook.count()
+        'notebook': notebook.count(),
+        'note_moyenne': note_moyenne,
     }
     return render(request, 'projects/index.html', context)
 
@@ -112,15 +118,6 @@ def project_detail(request, pk):
     note_moyenne = round(note_moyenne, 1)
     note_entier = int(note_moyenne)
     
-    # Check if user can view this project
-    can_view = (
-        project.status in ['active', 'completed'] or
-        request.user == project.creator or
-        request.user in project.collaborators.all()
-    )
-    
-    if not can_view:
-        return HttpResponseForbidden("Vous n'avez pas l'autorisation de voir ce projet.")
     
     # verifier le status de la collaboration
     collaboration_status = None
@@ -359,7 +356,7 @@ def manage_collaborations(request):
         
         return redirect('manage_collaborations')
     
-    return render(request, 'projects/collaborations_attente.html', {'collaboration_en_attentes': collaboration_en_attente})
+    return render(request, 'projects/collaborations_attente.html', {'collaboration_en_attentes': collaboration_en_attente, 'nombre_attente':collaboration_en_attente.count() })
 
 
 #@login_required

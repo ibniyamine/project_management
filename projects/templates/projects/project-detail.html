@@ -25,13 +25,15 @@
                                         <div class="d-flex align-items-center">
                                             <span class="badge bg-primary me-2">{{project.analysis_type}}</span>
                                             <span class="badge bg-success me-2">{{project.status}}</span>
+                                            {% if project.status == 'completed' %}
                                             <div class="rating me-3">
                                                 {% for note in note_entier %}
                                                 <i class="fas fa-star"></i>
                                                 {% endfor %}
                                                 
-                                                <span class="ms-1">{{note_moyenne}} ({{total_notes}} notes)</span>
+                                                <span class="ms-1">{{note_moyenne}} ({{total_notes}} notes)</span> 
                                             </div>
+                                            {% endif %}
                                         </div>
                                     </div>
                                 </div>
@@ -54,12 +56,12 @@
                                 <a class="btn btn-primary" href="{% url 'request_collaboration' project.pk %}">
                                     <i class="fas fa-user-plus me-1"></i>Rejoindre
                                 </a>
-                                <button class="btn btn-outline-secondary">
+                                <!-- <button class="btn btn-outline-secondary">
                                     <i class="fas fa-star me-1"></i>Favoris
                                 </button>
                                 <button class="btn btn-outline-secondary">
                                     <i class="fas fa-share me-1"></i>Partager
-                                </button>
+                                </button> -->
                             </div>
                         </div>
                     </div>
@@ -150,6 +152,7 @@
                     </div>
                 </div>
 
+                {% if project.status == 'completed' %}
                 <!-- Comments Section -->
                 <div class="card shadow">
                     <div class="card-header">
@@ -221,6 +224,7 @@
                     
                     </div>
                 </div>
+                {% endif %}
             </div>
             
 
