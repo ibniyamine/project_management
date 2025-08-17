@@ -106,7 +106,6 @@ def project_detail(request, pk):
     """Project detail view"""
     project = get_object_or_404(Project, pk=pk)
     notebooks = project.notebooks.all()
-    # collaborators = project.collaborators.all()
     collaborators = User.objects.filter(
     collaboration_requests__project=project,
     collaboration_requests__status='approved'
@@ -139,7 +138,7 @@ def project_detail(request, pk):
 
 
 
-    # Gestion des  commentaires
+    # Gestion des  commentaires et notation
     if request.method == 'POST':
         action = request.POST.get("action")
 
@@ -176,17 +175,7 @@ def project_detail(request, pk):
     else:
         formNote = RatingForm()
         formCommente = CommentForm()
-
-
     
-    #Gestion des nototations
-    # if project.status != 'completed':
-    #     messages.error(request, "Vous ne pouvez noter que les projets terminés.")
-    #     return redirect('project_detail', pk=project.pk)
-    
-    
-
-
 
     
     context = {
@@ -266,6 +255,20 @@ def edit_project(request, pk):
         form = ProjectForm(instance=project)
     
     return render(request, 'projects/edit_project.html', {'form': form, 'project': project})
+
+
+def delete_project(request, project_pk):
+    project = get_object_or_404(Project, pk=project_pk)
+
+    # Vérifier si l'utilisateur est le créateur du projet
+    if project.creator != request.user:
+        messages.error(request, "Vous n'avez pas l'autorisation de supprimer ce projet.")
+        return redirect('project_detail', project_pk=project.pk)
+
+    
+    project.delete()
+    messages.success(request, "Projet supprimé avec succès.")
+    return redirect('project_list')
 
 
 #@login_required
